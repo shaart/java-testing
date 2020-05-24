@@ -18,6 +18,11 @@ public class ValueToken implements OperationToken {
     return value;
   }
 
+  @Override
+  public int order() {
+    throw new UnsupportedOperationException("Number does not have any order");
+  }
+
   public boolean isNumber() {
     return true;
   }

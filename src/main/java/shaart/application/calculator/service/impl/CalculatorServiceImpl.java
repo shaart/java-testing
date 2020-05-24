@@ -4,9 +4,12 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import shaart.application.calculator.dto.OperationToken;
+import shaart.application.calculator.dto.token.operator.FinishOperatorToken;
 import shaart.application.calculator.service.CalculatorService;
 
 public class CalculatorServiceImpl implements CalculatorService {
+
+  public static final FinishOperatorToken FINISH_OPERATOR_TOKEN = new FinishOperatorToken();
 
   @Override
   public Double calculate(List<OperationToken> expressionTokens) {
@@ -16,11 +19,12 @@ public class CalculatorServiceImpl implements CalculatorService {
     for (OperationToken token : expressionTokens) {
       if (token.isNumber()) {
         numbersStack.push(token.getValue());
-        evaluateIfPossible(numbersStack, operatorsStack);
       } else {
+        evaluateIfPossible(numbersStack, operatorsStack, token);
         operatorsStack.push(token);
       }
     }
+    evaluateIfPossible(numbersStack, operatorsStack, FINISH_OPERATOR_TOKEN);
     Double result = numbersStack.pop();
     if (!numbersStack.isEmpty() || !operatorsStack.isEmpty()) {
       throw new IllegalStateException("Too many operands");
@@ -30,14 +34,19 @@ public class CalculatorServiceImpl implements CalculatorService {
   }
 
   private void evaluateIfPossible(Deque<Double> numbersStack,
-      Deque<OperationToken> operatorsStack) {
+      Deque<OperationToken> operatorsStack, OperationToken token) {
     while (numbersStack.size() >= 2 && operatorsStack.size() >= 1) {
-      final Double right = numbersStack.pop();
-      final Double left = numbersStack.pop();
-      final OperationToken operation = operatorsStack.pop();
+      final OperationToken lastOperation = operatorsStack.peekLast();
+      if (lastOperation != null && lastOperation.order() > token.order()) {
+        final Double right = numbersStack.pop();
+        final Double left = numbersStack.pop();
+        final OperationToken operation = operatorsStack.pop();
 
-      Double tokenResult = operation.evaluate(left, right);
-      numbersStack.push(tokenResult);
+        Double tokenResult = operation.evaluate(left, right);
+        numbersStack.push(tokenResult);
+      } else {
+        break;
+      }
     }
   }
 

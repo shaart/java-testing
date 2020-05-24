@@ -22,42 +22,42 @@ class CalculatorServiceImplTest {
   @Test
   @DisplayName("Sum 2 values with right tokens' order")
   void calculateSumTwoValues() {
-    final ValueToken left = new ValueToken(1.0);
-    final ValueToken right = new ValueToken(2.5);
-    final SumOperatorToken plus = new SumOperatorToken();
+    final OperationToken left = new ValueToken(2.0);
+    final OperationToken right = new ValueToken(2.0);
+    final OperationToken plus = new SumOperatorToken();
     final List<OperationToken> operands = Arrays.asList(left, plus, right);
 
     Double result = calculatorService.calculate(operands);
 
-    Assertions.assertEquals(3.5, result);
+    Assertions.assertEquals(4.0, result);
   }
 
   @Test
   @DisplayName("Multiply 2 values then add third")
   void calculateMultiplySumWithThreeValues() {
-    final ValueToken first = new ValueToken(1.0);
-    final ValueToken second = new ValueToken(2.0);
-    final ValueToken third = new ValueToken(2.5);
-    final SumOperatorToken plus = new SumOperatorToken();
+    final OperationToken first = new ValueToken(3.0);
+    final OperationToken second = new ValueToken(1.0);
+    final OperationToken third = new ValueToken(3.0);
+    final OperationToken plus = new SumOperatorToken();
     final MultiplyOperatorToken multiply = new MultiplyOperatorToken();
     final List<OperationToken> operands = Arrays.asList(first, multiply, second, plus, third);
 
     Double result = calculatorService.calculate(operands);
 
-    Assertions.assertEquals(4.5, result);
+    Assertions.assertEquals(6.0, result);
   }
 
   @Test
   @DisplayName("Sum 3 values with right tokens' order")
   void calculateSumThreeValues() {
-    final ValueToken first = new ValueToken(1.0);
-    final ValueToken second = new ValueToken(2.5);
-    final ValueToken third = new ValueToken(0.5);
-    final SumOperatorToken plus = new SumOperatorToken();
+    final OperationToken first = new ValueToken(1.0);
+    final OperationToken second = new ValueToken(2.0);
+    final OperationToken third = new ValueToken(3.0);
+    final OperationToken plus = new SumOperatorToken();
     final List<OperationToken> operands = Arrays.asList(first, plus, second, plus, third);
 
     Double result = calculatorService.calculate(operands);
 
-    Assertions.assertEquals(4.0, result);
+    Assertions.assertEquals(6.0, result);
   }
 }
