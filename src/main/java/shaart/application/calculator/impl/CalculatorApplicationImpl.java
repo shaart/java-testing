@@ -1,5 +1,6 @@
 package shaart.application.calculator.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ public class CalculatorApplicationImpl implements CalculatorApplication {
 
   @Override
   public void run(String... args) {
+    if (log.isInfoEnabled()) {
+      log.info("Got calculator with arguments: {}", Arrays.toString(args));
+    }
     final String fullOperation = String.join("", args);
     List<OperationToken> operationTokens = operationService.getOperation(fullOperation);
     operationService.requireValidTokens(operationTokens);

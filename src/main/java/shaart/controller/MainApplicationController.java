@@ -37,7 +37,7 @@ public class MainApplicationController {
     try {
       application.run(appArgs);
     } catch (Exception e) {
-      log.error("An application '{}' exited with error", requestedAppName, e);
+      log.error("An application '{}' exited with error: {}", requestedAppName, e.getMessage());
     }
   }
 }

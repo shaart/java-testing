@@ -1,20 +1,29 @@
 package shaart.application.calculator.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import shaart.application.calculator.dto.OperationToken;
+import shaart.application.calculator.dto.token.operator.AbstractOperatorToken;
+import shaart.application.calculator.dto.token.operator.MultiplyOperatorToken;
 import shaart.application.calculator.dto.token.operator.SumOperatorToken;
 import shaart.application.calculator.dto.token.value.ValueToken;
 import shaart.application.calculator.service.OperationService;
 
 public class OperationServiceImpl implements OperationService {
 
-  public static final SumOperatorToken SUM_OPERATION_TOKEN = new SumOperatorToken();
-  public static final String OPERATOR_REGEX = "[+\\-*/]";
-  public static final String OPERATORS_REGEX_WITH_DELIMITER_SAVING =
+  private static final String OPERATOR_REGEX = "[+\\-*/]";
+  private static final String OPERATORS_REGEX_WITH_DELIMITER_SAVING =
       "((?<=" + OPERATOR_REGEX + ")|(?=" + OPERATOR_REGEX + "))";
+
+  private static final Map<String, AbstractOperatorToken> OPERATORS = new HashMap<>();
+
+  static {
+    OPERATORS.put("+", new SumOperatorToken());
+    OPERATORS.put("*", new MultiplyOperatorToken());
+  }
 
   @Override
   public List<OperationToken> getOperation(String fullOperation) {
@@ -33,10 +42,11 @@ public class OperationServiceImpl implements OperationService {
       final double doubleValue = Double.parseDouble(token);
       return new ValueToken(doubleValue);
     }
-    if ("+".equals(token)) {
-      return SUM_OPERATION_TOKEN;
+    final AbstractOperatorToken foundToken = OPERATORS.get(token);
+    if (foundToken == null) {
+      throw new UnsupportedOperationException("Operation '" + token + "' is not supported");
     }
-    throw new UnsupportedOperationException("Operation '" + token + "' is not supported");
+    return foundToken;
   }
 
   private boolean isNumber(String token) {
