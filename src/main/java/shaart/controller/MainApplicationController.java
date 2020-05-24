@@ -5,10 +5,10 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import shaart.common.AppContextFactory;
 import shaart.common.Application;
-import shaart.common.ApplicationName;
+import shaart.common.enums.ApplicationName;
 
 @Slf4j
-public class ApplicationController {
+public class MainApplicationController {
 
   private static final List<String> APPLICATIONS_LIST = ApplicationName.getAppNames();
   private static final String JOINED_APP_NAMES = String.join(", ", APPLICATIONS_LIST);
@@ -34,6 +34,10 @@ public class ApplicationController {
 
     Application application = appContextFactory.getApp(requestedAppName);
     final String[] appArgs = Arrays.copyOfRange(args, FIRST_APP_ARG_INDEX, args.length);
-    application.run(appArgs);
+    try {
+      application.run(appArgs);
+    } catch (Exception e) {
+      log.error("An application '{}' exited with error", requestedAppName, e);
+    }
   }
 }

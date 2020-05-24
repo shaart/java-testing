@@ -1,20 +1,18 @@
-package shaart.common;
+package shaart.common.enums;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import shaart.calculator.Calculator;
 
 @Getter
 @AllArgsConstructor
 public enum ApplicationName {
 
-  CALCULATOR("calculator", Calculator.class);
+  CALCULATOR("calculator");
 
   private String name;
-  private Class<?> appClass;
 
   public static List<String> getAppNames() {
     return Stream.of(values())

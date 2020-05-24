@@ -1,7 +1,12 @@
 package shaart.common;
 
-import shaart.calculator.Calculator;
-import shaart.calculator.impl.CalculatorImpl;
+import shaart.application.calculator.CalculatorApplication;
+import shaart.application.calculator.impl.CalculatorApplicationImpl;
+import shaart.application.calculator.service.CalculatorService;
+import shaart.application.calculator.service.OperationService;
+import shaart.application.calculator.service.impl.CalculatorServiceImpl;
+import shaart.application.calculator.service.impl.OperationServiceImpl;
+import shaart.common.enums.ApplicationName;
 
 public class AppContextFactory {
 
@@ -14,7 +19,18 @@ public class AppContextFactory {
     return null;
   }
 
-  private Calculator calculator() {
-    return new CalculatorImpl();
+  private CalculatorApplication calculator() {
+    final OperationService operationService = operationService();
+
+    return new CalculatorApplicationImpl(operationService, calculatorService());
   }
+
+  private CalculatorService calculatorService() {
+    return new CalculatorServiceImpl();
+  }
+
+  private OperationService operationService() {
+    return new OperationServiceImpl();
+  }
+
 }

@@ -2,5 +2,5 @@ package shaart.common;
 
 public interface Application {
 
-  void run(String[] args);
+  void run(String... args);
 }

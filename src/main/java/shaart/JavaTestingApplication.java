@@ -1,6 +1,6 @@
 package shaart;
 
-import shaart.controller.ApplicationController;
+import shaart.controller.MainApplicationController;
 
 /**
  * Application's entry point.
@@ -8,7 +8,7 @@ import shaart.controller.ApplicationController;
 public class JavaTestingApplication {
 
   public static void main(String[] args) {
-    final ApplicationController applicationController = new ApplicationController();
-    applicationController.run(args);
+    final MainApplicationController mainApplicationController = new MainApplicationController();
+    mainApplicationController.run(args);
   }
 }
