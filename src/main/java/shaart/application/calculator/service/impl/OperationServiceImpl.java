@@ -5,13 +5,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import shaart.application.calculator.dto.OperationToken;
-import shaart.application.calculator.dto.token.operation.SumOperationToken;
+import shaart.application.calculator.dto.token.operator.SumOperatorToken;
 import shaart.application.calculator.dto.token.value.ValueToken;
 import shaart.application.calculator.service.OperationService;
 
 public class OperationServiceImpl implements OperationService {
 
-  public static final SumOperationToken SUM_OPERATION_TOKEN = new SumOperationToken();
+  public static final SumOperatorToken SUM_OPERATION_TOKEN = new SumOperatorToken();
   public static final String OPERATOR_REGEX = "[+\\-*/]";
   public static final String OPERATORS_REGEX_WITH_DELIMITER_SAVING =
       "((?<=" + OPERATOR_REGEX + ")|(?=" + OPERATOR_REGEX + "))";

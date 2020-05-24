@@ -3,8 +3,6 @@ package shaart.application.calculator.service.impl;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import shaart.application.calculator.dto.OperationToken;
 import shaart.application.calculator.service.CalculatorService;
 
@@ -31,7 +29,8 @@ public class CalculatorServiceImpl implements CalculatorService {
     return result;
   }
 
-  private void evaluateIfPossible(Deque<Double> numbersStack, Deque<OperationToken> operatorsStack) {
+  private void evaluateIfPossible(Deque<Double> numbersStack,
+      Deque<OperationToken> operatorsStack) {
     while (numbersStack.size() >= 2 && operatorsStack.size() >= 1) {
       final Double right = numbersStack.pop();
       final Double left = numbersStack.pop();

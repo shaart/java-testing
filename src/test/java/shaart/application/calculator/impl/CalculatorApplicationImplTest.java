@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +39,7 @@ class CalculatorApplicationImplTest {
 
     final Answer<Object> makeTokensCalled = invocationOnMock -> {
       hasTokensDeterminationCalled.setValue(true);
-      return null;
+      return Collections.emptyList();
     };
     when(operationService.getOperation(fullOperation))
         .then(makeTokensCalled);
@@ -56,8 +57,9 @@ class CalculatorApplicationImplTest {
 
     final Answer<Object> checkDeterminationAndValidationCalled = invocationOnMock -> {
       if (!hasValidationCalled.getValue() || !hasTokensDeterminationCalled.getValue()) {
-        throw new IllegalStateException(
-            "Wrong calls order: calculator must be called after tokens determining and their validation");
+        throw new IllegalStateException(""
+            + "Wrong calls order: calculator must be called after tokens determining "
+            + "and their validation");
       }
       hasCalculationCalled.setValue(true);
       return 3.0;

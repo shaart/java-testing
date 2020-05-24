@@ -1,18 +1,15 @@
-package shaart.application.calculator.dto.token.operation;
+package shaart.application.calculator.dto.token.operator;
 
 import shaart.application.calculator.dto.OperationToken;
 
-public class SumOperationToken implements OperationToken {
+public abstract class AbstractOperatorToken implements OperationToken {
 
   @Override
   public boolean isNumber() {
     return false;
   }
 
-  @Override
-  public Double evaluate(Double left, Double right) {
-    return left + right;
-  }
+  public abstract Double evaluate(Double left, Double right);
 
   @Override
   public Double getValue() {
