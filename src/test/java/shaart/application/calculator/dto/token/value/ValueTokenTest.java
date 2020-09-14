@@ -1,22 +1,26 @@
 package shaart.application.calculator.dto.token.value;
 
 import static org.mockito.ArgumentMatchers.anyDouble;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class ValueTokenTest {
 
-    private final double tokenValue = 3.1;
-    private ValueToken valueToken = new ValueToken(tokenValue);
+    private static final double TOKEN_VALUE = 3.1;
+    private ValueToken valueToken;
+
+    @BeforeEach
+    void initialization() {
+        valueToken = new ValueToken(TOKEN_VALUE);
+    }
 
     @Test
     @DisplayName("Value token getter return right value")
     void valueTokenGetterReturnRightValue() {
-        Assertions.assertEquals(tokenValue, valueToken.getValue());
+        Assertions.assertEquals(TOKEN_VALUE, valueToken.getValue());
     }
 
     @Test
