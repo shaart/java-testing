@@ -4,11 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import shaart.application.calculator.dto.token.value.ValueToken;
 
-@ExtendWith(MockitoExtension.class)
 public class FinishOperatorTokenTest {
 
     private FinishOperatorToken finishOperatorToken;
