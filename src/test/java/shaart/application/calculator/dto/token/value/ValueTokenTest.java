@@ -1,7 +1,5 @@
 package shaart.application.calculator.dto.token.value;
 
-import static org.mockito.ArgumentMatchers.anyDouble;
-
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -10,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class ValueTokenTest {
 
     private static final double TOKEN_VALUE = 3.1;
+
     private ValueToken valueToken;
 
     @BeforeEach
@@ -26,6 +25,23 @@ public class ValueTokenTest {
     @Test
     @DisplayName("Value can not be evolute")
     void valueCanNotBeEvolute() {
-        Assertions.assertThrows(UnsupportedOperationException.class, () -> valueToken.evaluate(anyDouble(), anyDouble()));
+        final double rightNumber = 1.1;
+        final double leftNumber = 3.4;
+
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            valueToken.evaluate(leftNumber, rightNumber);
+        });
+    }
+
+    @Test
+    @DisplayName("Value have no order")
+    void valueHaveNoOrder() {
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> valueToken.order());
+    }
+
+    @Test
+    @DisplayName("Value is number")
+    void valueIsNumber() {
+        Assertions.assertTrue(valueToken.isNumber());
     }
 }
