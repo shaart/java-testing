@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class SumOperatorTokenTest {
 
-    SumOperatorToken sumOperatorToken;
+    private SumOperatorToken sumOperatorToken;
 
     @BeforeEach
     void initialization() {
